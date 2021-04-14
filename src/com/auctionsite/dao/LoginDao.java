@@ -10,7 +10,7 @@ import java.sql.Statement;
 
 public class LoginDao {
 
-    public UserType authenticateUser(LoginBean loginBean) {
+    public String authenticateUser(LoginBean loginBean) {
         String username = loginBean.getUsername();
         String password = loginBean.getPassword();
 
@@ -25,22 +25,13 @@ public class LoginDao {
             ResultSet loginResult = statement.executeQuery(loginQuery);
 
             if(loginResult.next()) {
-                switch(loginResult.getString("usertype")) {
-                    case "admin":
-                        return UserType.admin;
-                    case "customer rep":
-                        return UserType.customerrep;
-                    case "end user":
-                        return UserType.enduser;
-                    default:
-                        return UserType.invalid;
-                }
+                return loginResult.getString("usertype");
             }
         }
         catch(SQLException e) {
             e.printStackTrace();
         }
-        return UserType.invalid;
+        return "invalid";
     }
 }
 

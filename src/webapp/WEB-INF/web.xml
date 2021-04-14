@@ -19,4 +19,13 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <display-name>CreateUserServlet</display-name>
+        <servlet-name>CreateUserServlet</servlet-name>
+        <servlet-class>com.auctionsite.controllers.CreateUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateUserServlet</servlet-name>
+        <url-pattern>/CreateUserServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

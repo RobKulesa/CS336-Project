@@ -2,7 +2,6 @@ package com.auctionsite.controllers;
 
 import com.auctionsite.bean.LoginBean;
 import com.auctionsite.dao.LoginDao;
-import com.auctionsite.dao.UserType;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,31 +24,32 @@ public class LoginServlet extends HttpServlet {
         LoginDao loginDao = new LoginDao();
 
         try {
-            UserType userType = loginDao.authenticateUser(loginBean);
+            String userType = loginDao.authenticateUser(loginBean);
             HttpSession session = request.getSession();
             switch(userType) {
-                case admin:
+                case "admin":
                     session.setAttribute("admin", username);
                     request.setAttribute("username", username);
                     request.getRequestDispatcher("/JSP/Admin.jsp").forward(request, response);
                     break;
-                case customerrep:
+                case "customer rep":
                     session.setAttribute("customerrep", username);
                     request.setAttribute("username", username);
                     request.getRequestDispatcher("/JSP/CustomerRep.jsp").forward(request, response);
                     break;
-                case enduser:
+                case "end user":
                     session.setAttribute("enduser", username);
                     request.setAttribute("username", username);
                     request.getRequestDispatcher("/JSP/EndUser.jsp").forward(request, response);
                     break;
-                case invalid:
+                default:
                     request.setAttribute("errMessage", "Failed to login, please try again...");
                     request.getRequestDispatcher("/JSP/LandingPage.jsp").forward(request, response);
                     break;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            request.setAttribute("errMessage", e.getMessage());
+            request.getRequestDispatcher("/JSP/LandingPage.jsp").forward(request, response);
         }
     }
 }
