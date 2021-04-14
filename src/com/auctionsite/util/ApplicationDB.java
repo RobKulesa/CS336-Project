@@ -1,14 +1,10 @@
-package com.cs336.pkg;
+package com.auctionsite.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ApplicationDB {
-	
-	public ApplicationDB(){
-		
-	}
 
 	public Connection getConnection(){
 		
@@ -18,7 +14,7 @@ public class ApplicationDB {
 		
 		try {
 			//Load JDBC driver - the interface standardizing the connection procedure. Look at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
@@ -27,8 +23,8 @@ public class ApplicationDB {
 			e.printStackTrace();
 		}
 		try {
-			//Create a connection to your DB
-			String password = "admin"; 
+			//Create a connection to your
+			String password = "admin";
 			connection = DriverManager.getConnection(connectionUrl,"root", password);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -49,15 +45,11 @@ public class ApplicationDB {
 	}
 	
 	
-	
-	
-	
 	public static void main(String[] args) {
-		ApplicationDB dao = new ApplicationDB();
-		Connection connection = dao.getConnection();
-		
+		ApplicationDB db = new ApplicationDB();
+		Connection connection = db.getConnection();
 		System.out.println(connection);		
-		dao.closeConnection(connection);
+		db.closeConnection(connection);
 	}
 	
 	
