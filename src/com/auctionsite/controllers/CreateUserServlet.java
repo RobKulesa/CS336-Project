@@ -16,12 +16,13 @@ public class CreateUserServlet extends HttpServlet {
         String username = request.getParameter("newusername");
         String password = request.getParameter("newpassword");
         String userType = request.getParameter("newusertype");
+        String origin = "/JSP/" + request.getParameter("origin");
 
         System.out.println("UserType is : " + userType);
 
         if(username.isBlank() || password.isBlank()) {
             request.setAttribute("createMessage", "Fields cannot be blank!");
-            request.getRequestDispatcher("/JSP/LandingPage.jsp").forward(request, response);
+            request.getRequestDispatcher(origin).forward(request, response);
             return;
         }
 
@@ -32,10 +33,10 @@ public class CreateUserServlet extends HttpServlet {
         try {
             createUserDao.createUser(userBean);
             request.setAttribute("createMessage", "Successfully created account!");
-            request.getRequestDispatcher("/JSP/LandingPage.jsp").forward(request, response);
+            request.getRequestDispatcher(origin).forward(request, response);
         } catch(Exception e) {
             request.setAttribute("createMessage", e.getMessage());
-            request.getRequestDispatcher("/JSP/LandingPage.jsp").forward(request, response);
+            request.getRequestDispatcher(origin).forward(request, response);
         }
     }
 }

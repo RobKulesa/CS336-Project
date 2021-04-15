@@ -6,5 +6,8 @@
 </head>
 <body>
 Customer rep yeet
+<form action="<%=request.getContextPath()%>/LogoutServlet" method="get">
+    <input type="submit" value="Logout">
+</form>
 </body>
 </html>

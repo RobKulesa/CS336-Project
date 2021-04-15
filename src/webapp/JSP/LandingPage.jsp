@@ -53,6 +53,7 @@
 		</table>
 		<input type="submit" value="Create account!">
 		<input type="hidden" name="newusertype" value="end user">
+		<input type="hidden" name="origin" value="LandingPage.jsp">
 	</form>
 </div>
 </body>
