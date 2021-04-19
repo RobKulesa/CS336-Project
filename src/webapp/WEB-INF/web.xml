@@ -37,4 +37,21 @@
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <display-name>EarningsServlet</display-name>
+        <servlet-name>EarningsServlet</servlet-name>
+        <servlet-class>com.auctionsite.controllers.EarningsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EarningsServlet</servlet-name>
+        <url-pattern>/EarningsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GoBackServlet</servlet-name>
+        <servlet-class>com.auctionsite.controllers.GoBackServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GoBackServlet</servlet-name>
+        <url-pattern>/GoBackServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

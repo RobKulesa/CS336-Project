@@ -1,6 +1,6 @@
 package com.auctionsite.controllers;
 
-import com.auctionsite.bean.LoginBean;
+import com.auctionsite.beans.LoginBean;
 import com.auctionsite.dao.LoginDao;
 
 import javax.servlet.ServletException;

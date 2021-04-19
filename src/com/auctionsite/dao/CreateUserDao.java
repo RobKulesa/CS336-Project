@@ -1,6 +1,6 @@
 package com.auctionsite.dao;
 
-import com.auctionsite.bean.UserBean;
+import com.auctionsite.beans.UserBean;
 import com.auctionsite.util.ApplicationDB;
 
 import java.sql.*;

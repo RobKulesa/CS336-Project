@@ -1,4 +1,4 @@
-package com.auctionsite.bean;
+package com.auctionsite.beans;
 
 public class UserBean {
     private String username;
