@@ -1,4 +1,4 @@
-package com.auctionsite.bean;
+package com.auctionsite.beans;
 
 public class LoginBean {
 

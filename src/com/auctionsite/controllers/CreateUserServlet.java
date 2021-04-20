@@ -1,6 +1,6 @@
 package com.auctionsite.controllers;
 
-import com.auctionsite.bean.UserBean;
+import com.auctionsite.beans.UserBean;
 import com.auctionsite.dao.CreateUserDao;
 
 import javax.servlet.ServletException;
@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class CreateUserServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("newusername");

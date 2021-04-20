@@ -1,6 +1,7 @@
+
 package com.auctionsite.dao;
 
-import com.auctionsite.bean.LoginBean;
+import com.auctionsite.beans.LoginBean;
 import com.auctionsite.util.ApplicationDB;
 
 import java.sql.Connection;
@@ -34,4 +35,3 @@ public class LoginDao {
         return "invalid";
     }
 }
-
