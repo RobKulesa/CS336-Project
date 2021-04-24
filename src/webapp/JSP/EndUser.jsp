@@ -1,12 +1,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
 <html>
 <head>
     <title>End User Logged In!</title>
 </head>
+<%
+    HttpSession ses = request.getSession();
+    String username = (String)ses.getAttribute("enduser");
+    out.print("Welcome " + username + "!");
+    //session.setAttribute("username",username);
+%>
 <body>
-End user yeet
+
+<form action="JSP/createAuc.jsp" method="get">
+    <input type="submit" value="Create an Auction">
+</form>
+
+<form action="JSP/viewAuc.jsp" method="get">
+    <input type="hidden" name="uid" value=<%=(String)request.getAttribute("uid")%>>
+    <input type="submit" value="View Current Auctions">
+</form>
+
 <form action="<%=request.getContextPath()%>/LogoutServlet" method="get">
     <input type="submit" value="Logout">
 </form>
 </body>
+
 </html>

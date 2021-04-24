@@ -54,4 +54,14 @@
         <servlet-name>GoBackServlet</servlet-name>
         <url-pattern>/GoBackServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <display-name>CreateBidServlet</display-name>
+        <servlet-name>CreateBidServlet</servlet-name>
+        <servlet-class>com.auctionsite.controllers.CreateBidServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateBidServlet</servlet-name>
+        <url-pattern>/CreateBidServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
