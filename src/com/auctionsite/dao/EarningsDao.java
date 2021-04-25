@@ -83,7 +83,7 @@ public class EarningsDao {
                     earnings.addRow(row);
                 }
             } catch (Exception e) {
-                earnings.addRow(new String[]{"error", "$0.00"});
+                earnings.addRow(new String[]{type, "$0.00"});
             }
         }
         return earnings;

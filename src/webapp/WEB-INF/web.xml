@@ -54,4 +54,20 @@
         <servlet-name>GoBackServlet</servlet-name>
         <url-pattern>/GoBackServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ThreadsServlet</servlet-name>
+        <servlet-class>com.auctionsite.controllers.ThreadsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ThreadsServlet</servlet-name>
+        <url-pattern>/ThreadsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AccountInfoServlet</servlet-name>
+        <servlet-class>com.auctionsite.controllers.AccountInfoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccountInfoServlet</servlet-name>
+        <url-pattern>/AccountInfoServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

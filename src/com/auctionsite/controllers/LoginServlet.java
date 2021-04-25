@@ -29,16 +29,19 @@ public class LoginServlet extends HttpServlet {
             switch(userType) {
                 case "admin":
                     session.setAttribute("admin", username);
+                    session.setAttribute("usertype", "admin");
                     request.setAttribute("username", username);
                     request.getRequestDispatcher("/JSP/Admin.jsp").forward(request, response);
                     break;
                 case "customer rep":
                     session.setAttribute("customerrep", username);
+                    session.setAttribute("usertype", "customerrep");
                     request.setAttribute("username", username);
                     request.getRequestDispatcher("/JSP/CustomerRep.jsp").forward(request, response);
                     break;
                 case "end user":
                     session.setAttribute("enduser", username);
+                    session.setAttribute("usertype", "enduser");
                     request.setAttribute("username", username);
                     request.getRequestDispatcher("/JSP/EndUser.jsp").forward(request, response);
                     break;

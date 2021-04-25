@@ -26,8 +26,11 @@ public class LoginDao {
             ResultSet loginResult = statement.executeQuery(loginQuery);
 
             if(loginResult.next()) {
-                return loginResult.getString("usertype");
+                String mystr = loginResult.getString("usertype");
+                loginResult.close();
+                return mystr;
             }
+            loginResult.close();
         }
         catch(SQLException e) {
             e.printStackTrace();
