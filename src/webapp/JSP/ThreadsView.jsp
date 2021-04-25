@@ -45,10 +45,16 @@
         <input type="submit" value="Clear Search Results!">
     </form>
     <br>
+    <form action="<%=request.getContextPath()%>/GoBackServlet" method="get">
+        <input type="hidden" name="origin" value="EndUser.jsp">
+        <input type="submit" value="Go Back!">
+    </form>
 </c:if>
-<form action="<%=request.getContextPath()%>/GoBackServlet" method="get">
-    <input type="hidden" name="origin" value="EndUser.jsp">
-    <input type="submit" value="Go Back!">
-</form>
+<c:if test="${usertype.equalsIgnoreCase('customerrep')}">
+    <form action="<%=request.getContextPath()%>/GoBackServlet" method="get">
+        <input type="hidden" name="origin" value="CustomerRep.jsp">
+        <input type="submit" value="Go Back!">
+    </form>
+</c:if>
 </body>
 </html>

@@ -67,7 +67,7 @@ public class AccountInfoServlet extends HttpServlet {
             req.getRequestDispatcher("/JSP/AccountInfoView.jsp").forward(req, resp);
         } else if(reqtype.equals("deleteauction")) {
             int aid = Integer.valueOf(req.getParameter("aid"));
-            accountInfoDao.deleteBid(aid);
+            accountInfoDao.deleteAuction(aid);
 
             accounts = accountInfoDao.getAccountInfos();
             req.setAttribute("accounts", accounts);

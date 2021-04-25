@@ -5,7 +5,7 @@
     <title>Earnings View</title>
 </head>
 <body>
-Earnings View
+${earningsBean.type}
 <table>
     <tr>
         <c:forEach items="${earningsBean.columnNames}" var="column">

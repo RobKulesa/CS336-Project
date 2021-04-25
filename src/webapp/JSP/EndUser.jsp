@@ -4,8 +4,6 @@
     <title>End User Logged In!</title>
 </head>
 <body>
-End user yeet
-
 <form action="<%=request.getContextPath()%>/ThreadsServlet" method="post">
     <input type="submit" value="View Threads">
 </form>
