@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" %>
+<%@ page import="com.auctionsite.dao.AuctionDao" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -32,7 +34,7 @@
       </tr>
     </table>
     <input type="hidden" name = "bid_increment" value = <%=request.getParameter("bid_increment")%>>
-    <input type="text" name = "aid" value = <%=request.getParameter("aid")%>>
+    <input type="hidden" name = "aid" value = <%=request.getParameter("aid")%>>
     <input type="submit" value="Place bid.">
   </form>
   <p></p>
@@ -42,6 +44,8 @@
     <input type="hidden" name="origin" value="viewAuc.jsp">
     <input type="submit" value="Go Back!">
   </form>
+
+
 </div>
 </body>
 </html>

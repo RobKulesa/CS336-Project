@@ -1,14 +1,17 @@
 package com.auctionsite.controllers;
 
 import com.auctionsite.beans.BidBean;
+import com.auctionsite.beans.AuctionBean;
 import com.auctionsite.dao.CreateBidDao;
-
+import com.auctionsite.dao.AuctionDao;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Time;
+import java.sql.Date;
 
 public class CreateBidServlet extends HttpServlet{
     @Override
@@ -49,10 +52,25 @@ public class CreateBidServlet extends HttpServlet{
             bidBean.setUID(uid);
             bidBean.setAID(aid);
 
-            //Upload attempt
+            //Check upload validity
+            AuctionDao aucDao = new AuctionDao();
+            AuctionBean auction = aucDao.getAuctionFromAid(aid);
+
+            if(auction.getStatus() == 0){
+                request.setAttribute("errMessage", "Cannot bid in closed auction!");
+                request.getRequestDispatcher("/JSP/createBid.jsp").forward(request, response);
+                return;
+            }
+
+            if(auction.getUid() == uid){
+                request.setAttribute("errMessage", "Cannot bid in your own auction!");
+                request.getRequestDispatcher("/JSP/createBid.jsp").forward(request, response);
+                return;
+            }
+
             CreateBidDao bidDao = new CreateBidDao();
             if(!bidDao.isGoodAutoBid(bidBean)){
-                request.setAttribute("errMessage", "Invalid Parameters detected. Please try again");
+                request.setAttribute("errMessage", "Parameters entered were either improperly formatted or did not reach minimums set up by the seller. Please try again");
                 request.getRequestDispatcher("/JSP/createBid.jsp").forward(request, response);
                 return;
             }

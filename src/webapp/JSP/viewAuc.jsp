@@ -4,12 +4,16 @@
 <%@ page import="com.auctionsite.util.ApplicationDB" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="javax.swing.plaf.nimbus.State" %>
+<%@ page import="com.auctionsite.dao.AuctionDao" %>
+<%@ page import="com.auctionsite.dao.AuctionDao" %>
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>View Auction</title>
 </head>
-<body>
+<body onload="<%AuctionDao aucDao = new AuctionDao();
+        aucDao.refreshAuctions(aucDao.allAuctions());%>">
 <form action="<%=request.getContextPath()%>/GoBackServlet" method="get">
     <input type="hidden" name="origin" value="EndUser.jsp">
     <input type="submit" value="Go Back!">
@@ -19,7 +23,6 @@
 
 
     try {
-        out.print("Welcome: " + (String)session.getAttribute("uid"));
         //Get the database connection
         ApplicationDB db = new ApplicationDB();
         Connection con = db.getConnection();
@@ -122,8 +125,9 @@
         String new_bid = request.getParameter("bid");
         out.print(new_bid);
 
-        //close the connection.
 
+        //close the connection.
+        con.close();
 
     } catch (Exception e) {
         e.printStackTrace();

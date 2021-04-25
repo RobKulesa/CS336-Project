@@ -1,9 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.auctionsite.dao.AuctionDao" %>
+
 <html>
 <head>
     <title>Admin Homepage</title>
 </head>
-<body>
+<body onload="<%AuctionDao aucDao = new AuctionDao();
+        aucDao.refreshAuctions(aucDao.allAuctions());%>">
 <p>Create an account for a customer representative</p>
 <form action="<%=request.getContextPath()%>/CreateUserServlet" method="post">
     <table>

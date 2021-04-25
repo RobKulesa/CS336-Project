@@ -1,10 +1,13 @@
 package com.auctionsite.dao;
 import com.auctionsite.beans.BidBean;
 import com.auctionsite.util.ApplicationDB;
+import com.auctionsite.beans.AlertBean;
+import com.auctionsite.dao.AlertDao;
 import java.util.ArrayList;
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 
 
 public class CreateBidDao {
@@ -121,6 +124,10 @@ public class CreateBidDao {
                     String newAmnt = "UPDATE bids SET amnt = " + Float.toString(defaultPrice) + "WHERE bid ="
                             + Integer.toString(bids.get(0).getBid()) + ";";
                     statement.executeUpdate(newAmnt);
+
+                    String updateHighestBidField = "UPDATE auctions SET highest_bid =" + Integer.toString(bids.get(0).getBid())
+                            + " WHERE aid = " + Integer.toString(bids.get(0).getAid()) + ";";
+                    statement.executeUpdate(updateHighestBidField);
                 }
 
                 return;
@@ -170,7 +177,7 @@ public class CreateBidDao {
                 */
                 float runnerUpAmnt = 0;
                 for(BidBean b: bids){
-                    // TODO SEND MESSAGE TO ALL LOSERS
+
                     if(!highestBid.equals(b)){
                         float highestPossibleVal;
                         if(Math.abs(b.getDesiredIncrement()- 0) > 0.00000001){
@@ -182,7 +189,18 @@ public class CreateBidDao {
                             String updateBidAmnt = "UPDATE bids SET amnt = " + Float.toString(highestPossibleVal)
                                     + "WHERE bid =" + Integer.toString(b.getBid()) + ";";
                             statement.executeUpdate(updateBidAmnt);
+
                         }
+                        if(b.getUid() != highestBid.getUid()){
+                            AlertBean alertBean = new AlertBean();
+                            alertBean.setRecipient(b.getUid());
+                            alertBean.setSendDateTime(new Timestamp(Calendar.getInstance().getTime().getTime()));
+                            alertBean.setThread("You have been outbid at Auction: " + b.getAid());
+                            AlertDao alertDao = new AlertDao();
+                            alertDao.sendAlert(alertBean);
+                        }
+
+
                     }
                 }
 

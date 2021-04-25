@@ -57,6 +57,7 @@
 		<input type="hidden" name="newusertype" value="end user">
 		<input type="hidden" name="origin" value="LandingPage.jsp">
 	</form>
+
 </div>
 </body>
 </html>

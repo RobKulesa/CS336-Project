@@ -64,4 +64,24 @@
         <servlet-name>CreateBidServlet</servlet-name>
         <url-pattern>/CreateBidServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <display-name>RefreshAuctionsServlet</display-name>
+        <servlet-name>RefreshAuctionsServlet</servlet-name>
+        <servlet-class>com.auctionsite.controllers.RefreshAuctionsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RefreshAuctionsServlet</servlet-name>
+        <url-pattern>/RefreshAuctionsServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <display-name>ViewAlertsServlet</display-name>
+        <servlet-name>ViewAlertsServlet</servlet-name>
+        <servlet-class>com.auctionsite.controllers.ViewAlertsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewAlertsServlet</servlet-name>
+        <url-pattern>/ViewAlertsServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
