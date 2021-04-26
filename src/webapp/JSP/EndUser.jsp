@@ -13,11 +13,11 @@
 <body onload="<%AuctionDao aucDao = new AuctionDao();
         aucDao.refreshAuctions(aucDao.allAuctions());%>">
 
-<form action="JSP/createAuc.jsp" method="get">
+<form action="<%=request.getContextPath()%>/JSP/createAuc.jsp" method="get">
     <input type="submit" value="Create an Auction">
 </form>
 
-<form action="JSP/viewAuc.jsp" method="get">
+<form action="<%=request.getContextPath()%>/JSP/viewAuc.jsp" method="get">
     <input type="hidden" name="uid" value=<%=(String)request.getAttribute("uid")%>>
     <input type="submit" value="View Current Auctions">
 </form>

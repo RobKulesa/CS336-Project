@@ -27,34 +27,43 @@
     ApplicationDB db = new ApplicationDB();
     Connection con = db.getConnection();
 
-
-    String username = (String)session.getAttribute("username");
+    String username = (String)session.getAttribute("enduser");
     String getid = "SELECT uid FROM users WHERE users.display_name = '" + username + "'";
     Statement stmt = con.createStatement();
     ResultSet id = stmt.executeQuery(getid);
+
     int uid=0;
     if (id.next()) {
       uid = id.getInt("uid");
     }
 
     Integer aid = Integer.valueOf(request.getParameter("aid"));
+
     String bid = request.getParameter("bid");
 
+    Float bid_inc = Float.valueOf(request.getParameter("bid_increment"));
+
+    float top_bid=0;
     if (bid.isEmpty()) {
       out.print("Make sure you enter your bid price in the text box!");
     } else {
       float fbid = Float.valueOf(bid);
 
-      float top_bid=0;
-      String get_top = "SELECT highest_bid FROM auctions WHERE auctions.uid = '" + uid + "'";
+      String get_top = "SELECT bid_amt FROM auctions WHERE auctions.aid = '" + aid + "'";
       Statement state = con.createStatement();
-      ResultSet bids = stmt.executeQuery(get_top);
-      if (id.next()) {
-        top_bid = id.getFloat("highest_bid");
+      ResultSet bids = state.executeQuery(get_top);
+
+      if (bids.next()) {
+        top_bid = bids.getFloat("bid_amt");
       }
-      if (top_bid > fbid) {
-        out.print("Your bid is lower than than the current highest  bid");
-      } else {
+
+
+      if (top_bid >= fbid) {
+        out.print("Your bid is lower than or the same as the current highest bid");
+      } else if (fbid<(top_bid +bid_inc)) {
+        out.print("You need to bid at least $" + bid_inc + " higher than the current bid on this item");
+      }
+      else {
         //inserts bid into bids table and updates auction table accordingly
         String bid_insert = "INSERT INTO bids(aid, uid, amnt)" +
                 "VALUES (?,?,?)";
@@ -62,13 +71,26 @@
         auc_state.setInt(1, aid);
         auc_state.setInt(2, uid);
         auc_state.setFloat(3, fbid);
+        auc_state.executeUpdate();
 
-        String auc_insert = "UPDATE auctions SET highest_bid = ? WHERE auctions.aid = ?";
+        String get_topid = "SELECT bids.bid FROM bids WHERE bids.aid = '" + aid + "'";
+        Statement states = con.createStatement();
+        ResultSet bid2 = states.executeQuery(get_topid);
+
+        int bidid=0;
+        if (bid2.next()) {
+          bidid = bid2.getInt("bid");
+        }
+
+        //update auction table
+        String auc_insert = "UPDATE auctions SET bid_amt = ?, highest_bid = ? WHERE auctions.aid = ?";
         PreparedStatement auc_update = con.prepareStatement(auc_insert);
         auc_update.setFloat(1, fbid);
-        auc_update.setInt(2, aid);
+        auc_update.setInt(2, bidid);
+        auc_update.setInt(3, aid);
+        auc_update.executeUpdate();
 
-        out.print("You've placed a bid of" + fbid + "on auction #" + aid + "!");
+        out.print("You've placed a bid of $" + fbid + "!");
       }
       con.close();
     }

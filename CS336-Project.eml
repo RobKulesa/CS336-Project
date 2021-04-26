@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inherit-compiler-output="true" jdk="16" jdk_type="JavaSDK">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<levels>
+		<level name="jstl:jstl:1.2" value="project"/>
+		<level name="mysql:mysql-connector-java:8.0.23" value="project"/>
+		<level name="Tomcat 9.0" value="project"/>
+	</levels>
+</component>

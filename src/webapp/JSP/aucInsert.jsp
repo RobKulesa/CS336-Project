@@ -1,7 +1,11 @@
 <%@ page import="com.auctionsite.util.ApplicationDB" %>
 <%@ page import="java.lang.module.ResolutionException" %>
 <%@ page import="java.sql.*" %>
-<%@ page import="com.mysql.cj.x.protobuf.MysqlxPrepare" %><%--
+<%@ page import="com.mysql.cj.x.protobuf.MysqlxPrepare" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.LocalTime" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %><%--
   Created by IntelliJ IDEA.
   User: domin
   Date: 4/20/2021
@@ -24,7 +28,7 @@
 
     //Get parameters from the HTML form at the createAuc.jsp
 
-    String username = (String)session.getAttribute("username");
+    String username = (String)session.getAttribute("enduser");
 
     String getid = "SELECT uid FROM users WHERE users.display_name = '" + username + "'";
     Statement stmt = con.createStatement();
@@ -77,7 +81,16 @@
 
     //Auction parameters
     String close_date = request.getParameter("close_date");
-    String close_time = request.getParameter("close_time");
+    String close_times = request.getParameter("close_time");
+
+    LocalDate date = LocalDate.parse(close_date);
+    LocalTime timePart = LocalTime.parse(close_times);
+    LocalDateTime close_datetime = LocalDateTime.of(date,timePart);
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    String close_time = close_datetime.format(formatter);
+
+
     float bid_increment = Float.valueOf(request.getParameter("min_increment"));
 
     float min_price;
@@ -87,14 +100,18 @@
       min_price = Float.valueOf(request.getParameter("min_price"));
     }
 
+
+
+
     //Make insert statement for Items
-    String item_insert = "INSERT INTO items(brand,part_number,con,model) " +
-            "VALUES (?,?,?,?)";
+    String item_insert = "INSERT INTO items(brand,part_number,con,model,item_type) " +
+            "VALUES (?,?,?,?,?)";
     PreparedStatement item_state = con.prepareStatement(item_insert);
     item_state.setString(1,brand);
     item_state.setString(2,part);
     item_state.setString(3,item_con);
     item_state.setString(4,model);
+    item_state.setString(5,item);
     item_state.executeUpdate();
 
     if (item.equals("keyboard")) {
@@ -149,7 +166,7 @@
     con.close();
 
     out.println("You've created an auction for a " + brand + " brand " + item + " which is in " + item_con +
-            " condition, " + "the auction will close on " + close_date + " at " + close_time +
+            " condition, " + "the auction will close on " + close_time +
             " and has a minimum price of $" + min_price);
   } catch (Exception ex) {
     out.println(ex);

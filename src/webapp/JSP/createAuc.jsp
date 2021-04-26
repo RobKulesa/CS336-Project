@@ -95,8 +95,6 @@
         <br></br>
         Minimum Increment Price* &nbsp;<input type="number" name="min_increment" min="0.01" step="0.01"/>
         <br></br>
-        Starting Price &nbsp;<input type="number" name="start_price" min="0.00" step="0.01"/>
-        <br></br>
         Hidden Minimum Price &nbsp;<input type="number" name="min_price" min="0.00" step="0.01"/>
         <br></br>
         <input type="submit" value="Submit"/>
