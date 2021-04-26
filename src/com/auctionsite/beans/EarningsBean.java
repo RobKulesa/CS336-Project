@@ -2,6 +2,12 @@ package com.auctionsite.beans;
 
 import java.util.ArrayList;
 
+/**
+ * Class that I didn't make so you, Robert Kulesa have the honor of removing this comment
+ * I don't understand what any of these fields mean, but I guess as long as it works, it works
+ *
+ * @author Robert "callmebackpack" Kulesa
+ */
 public class EarningsBean {
     private String type;
     private String[] columnNames;

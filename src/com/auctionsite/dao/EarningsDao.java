@@ -5,6 +5,7 @@ import com.auctionsite.util.ApplicationDB;
 
 import java.sql.*;
 
+
 public class EarningsDao {
     public EarningsBean getTotalEarnings() {
         EarningsBean earnings = new EarningsBean("Total Auction Site Earnings", new String[]{"Total Earnings"});

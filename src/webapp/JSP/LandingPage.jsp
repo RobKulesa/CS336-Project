@@ -8,6 +8,7 @@
 </head>
 <body>
 <div>
+	<!-- Login Requester-->
 	<p> Login below if your account already exists: </p>
 	<form action="<%=request.getContextPath()%>/LoginServlet" method="post">
 		<table>
@@ -32,6 +33,7 @@
 	<p></p>
 	<p></p>
 	<p></p>
+	<!-- Account Creation -->
 	<p> Create an account below if you don't have an account: </p>
 	<form action="<%=request.getContextPath()%>/CreateUserServlet" method="post">
 		<table>
@@ -55,6 +57,7 @@
 		<input type="hidden" name="newusertype" value="end user">
 		<input type="hidden" name="origin" value="LandingPage.jsp">
 	</form>
+
 </div>
 </body>
 </html>
