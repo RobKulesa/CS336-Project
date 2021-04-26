@@ -37,4 +37,32 @@ public class LoginDao {
         }
         return "invalid";
     }
+
+    public String getUID(LoginBean loginBean){
+        //Retrieves login request information
+        String username = loginBean.getUsername();
+        String password = loginBean.getPassword();
+
+        try {
+            //Establish connection to database
+            ApplicationDB db = new ApplicationDB();
+            Connection con = db.getConnection();
+
+            //Create and format query
+            Statement statement = con.createStatement();
+
+            String loginQuery = "SELECT * FROM users WHERE display_name = '" + username + "' and pwd = '" + password + "';";
+
+            //Returns a ResultSet that may contain a non-empty query
+            ResultSet loginResult = statement.executeQuery(loginQuery);
+
+            if(loginResult.next()) {
+                return Integer.toString(loginResult.getInt("uid"));
+            }
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return "-1";
+    }
 }

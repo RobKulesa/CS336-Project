@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet {
                 case "end user":
                     session.setAttribute("enduser", username);
                     session.setAttribute("usertype", "enduser");
+                    session.setAttribute("uid", loginDao.getUID(loginBean));
                     request.setAttribute("username", username);
                     request.getRequestDispatcher("/JSP/EndUser.jsp").forward(request, response);
                     break;

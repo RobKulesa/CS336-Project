@@ -14,7 +14,7 @@ public class EarningsDao {
 
             Statement statement = con.createStatement();
 
-            String query = "SELECT SUM(b.amnt) FROM auctions a, bids b WHERE a.available='closed' AND b.bid=a.highest_bid;";
+            String query = "SELECT SUM(b.amnt) FROM auctions a, bids b WHERE a.available=0 AND b.bid=a.highest_bid;";
 
             ResultSet queryResult = statement.executeQuery(query);
 
@@ -37,7 +37,7 @@ public class EarningsDao {
 
             String query = "SELECT i.brand, i.model, i.part_number, SUM(b.amnt) " +
                     "FROM auctions a, bids b, items i " +
-                    "WHERE a.available='closed' " +
+                    "WHERE a.available=0 " +
                     "AND b.bid=a.highest_bid " +
                     "AND a.part_number=i.part_number " +
                     "GROUP BY a.part_number " +
@@ -71,7 +71,7 @@ public class EarningsDao {
 
                 String query = "SELECT SUM(b.amnt) " +
                         "FROM auctions a, bids b, " + type +  " i " +
-                        "WHERE a.available='closed' " +
+                        "WHERE a.available=0 " +
                         "AND b.bid=a.highest_bid " +
                         "AND a.part_number=i.part_number " +
                         "ORDER BY SUM(b.amnt) DESC;";
@@ -101,7 +101,7 @@ public class EarningsDao {
 
             String query = "SELECT u.display_name, SUM(b.amnt) " +
                     "FROM auctions a, users u, bids b, items i " +
-                    "WHERE a.available='closed' " +
+                    "WHERE a.available=0 " +
                     "AND b.bid=a.highest_bid " +
                     "AND a.uid=u.uid " +
                     "GROUP BY a.uid " +
@@ -136,7 +136,7 @@ public class EarningsDao {
                     "FROM auctions a, bids b " +
                     "INNER JOIN (SELECT a3.part_number " +
                     "FROM auctions a3 " +
-                    "WHERE a3.available='closed' " +
+                    "WHERE a3.available=0 " +
                     "GROUP BY a3.part_number " +
                     "ORDER BY COUNT(a3.part_number) DESC " +
                     "LIMIT " + limit +") AS a2 ON a2.part_number=part_number " +
@@ -169,7 +169,7 @@ public class EarningsDao {
 
             Statement statement = con.createStatement();
 
-            String query = "SELECT u.display_name, SUM(b.amnt) FROM users u, bids b  WHERE b.uid=u.uid AND b.bid IN (SELECT a.highest_bid FROM auctions a WHERE a.available='closed') GROUP BY u.display_name ORDER BY SUM(b.amnt) DESC LIMIT " + limit +";";
+            String query = "SELECT u.display_name, SUM(b.amnt) FROM users u, bids b  WHERE b.uid=u.uid AND b.bid IN (SELECT a.highest_bid FROM auctions a WHERE a.available=0) GROUP BY u.display_name ORDER BY SUM(b.amnt) DESC LIMIT " + limit +";";
 
             ResultSet queryResult = statement.executeQuery(query);
 

@@ -1,9 +1,8 @@
 package com.auctionsite.dao;
 
 import com.auctionsite.beans.AccountInfoBean;
-import com.auctionsite.beans.AuctionBean;
-import com.auctionsite.beans.BidBean;
-import com.auctionsite.beans.ThreadBean;
+import com.auctionsite.beans.RobAuctionBean;
+import com.auctionsite.beans.RobBidBean;
 import com.auctionsite.util.ApplicationDB;
 
 import java.sql.Connection;
@@ -45,8 +44,8 @@ public class AccountInfoDao {
         return accountInfos;
     }
 
-    public ArrayList<BidBean> getUsersBids(int uid) {
-        ArrayList<BidBean> bids = new ArrayList<BidBean>();
+    public ArrayList<RobBidBean> getUsersBids(int uid) {
+        ArrayList<RobBidBean> bids = new ArrayList<RobBidBean>();
         try {
             ApplicationDB db = new ApplicationDB();
             Connection con = db.getConnection();
@@ -68,7 +67,7 @@ public class AccountInfoDao {
                 String model = queryResult.getString("model");
                 float amnt = queryResult.getFloat("amnt");
 
-                bids.add(new BidBean(bid, part_number, brand, model, amnt));
+                bids.add(new RobBidBean(bid, part_number, brand, model, amnt));
             }
             queryResult.close();
         } catch(Exception e) {
@@ -77,8 +76,8 @@ public class AccountInfoDao {
         return bids;
     }
 
-    public ArrayList<AuctionBean> getUsersAuctions(int uid) {
-        ArrayList<AuctionBean> auctions = new ArrayList<AuctionBean>();
+    public ArrayList<RobAuctionBean> getUsersAuctions(int uid) {
+        ArrayList<RobAuctionBean> auctions = new ArrayList<RobAuctionBean>();
         try {
             ApplicationDB db = new ApplicationDB();
             Connection con = db.getConnection();
@@ -98,7 +97,7 @@ public class AccountInfoDao {
                 String model = queryResult.getString("model");
                 int aid = queryResult.getInt("aid");
 
-                auctions.add(new AuctionBean(aid, part_number, brand, model));
+                auctions.add(new RobAuctionBean(aid, part_number, brand, model));
             }
             queryResult.close();
         } catch(Exception e) {
