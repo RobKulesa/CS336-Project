@@ -80,8 +80,11 @@ public class AuctionDao {
         ArrayList<AuctionBean> closeCandidates = new ArrayList<AuctionBean>();
         for(AuctionBean ab : auctions) {
             if(ab.getStatus() == 1 && ab.getCloseDate().compareTo(curDate) <= 0) {
-                if(ab.getCloseDate().compareTo(curDate) == 0 && ab.getCloseTime().compareTo(curTime) < 0)
+                if(ab.getCloseDate().compareTo(curDate) < 0)
                     closeCandidates.add(ab);
+                else if(ab.getCloseDate().compareTo(curDate) == 0 && ab.getCloseTime().compareTo(curTime) < 0)
+                    closeCandidates.add(ab);
+
             }
         }
 
