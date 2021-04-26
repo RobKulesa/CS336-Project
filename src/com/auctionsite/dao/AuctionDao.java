@@ -22,16 +22,15 @@ public class AuctionDao {
             auctions.next();
 
             newAucBean.setAid(auctions.getInt(1));
-            newAucBean.setStartTime(auctions.getTime(2));
-            newAucBean.setCloseTime(auctions.getTime(3));
-            newAucBean.setCloseDate(auctions.getDate(4));
-            newAucBean.setStatus(auctions.getInt(5));
-            newAucBean.setInitPrice(auctions.getFloat(6));
-            newAucBean.setSecretMinPrice(auctions.getFloat(7));
-            newAucBean.setBidIncr(auctions.getFloat(8));
-            newAucBean.setUid(auctions.getInt(9));
-            newAucBean.setHighestBidID(auctions.getInt(10));
-            newAucBean.setPartNumber(auctions.getString(11));
+            newAucBean.setCloseTime(auctions.getTime(2));
+            newAucBean.setCloseDate(auctions.getDate(10));
+            newAucBean.setStatus(auctions.getInt(3));
+            newAucBean.setInitPrice(auctions.getFloat(4));
+            newAucBean.setSecretMinPrice(auctions.getFloat(6));
+            newAucBean.setBidIncr(auctions.getFloat(5));
+            newAucBean.setUid(auctions.getInt(7));
+            newAucBean.setHighestBidID(auctions.getInt(8));
+            newAucBean.setPartNumber(auctions.getString(9));
             auctions.close();
 
         } catch(Exception e){
@@ -54,16 +53,15 @@ public class AuctionDao {
                 AuctionBean newAucBean = new AuctionBean();
 
                 newAucBean.setAid(auctions.getInt(1));
-                newAucBean.setStartTime(auctions.getTime(2));
-                newAucBean.setCloseTime(auctions.getTime(3));
-                newAucBean.setCloseDate(auctions.getDate(4));
-                newAucBean.setStatus(auctions.getInt(5));
-                newAucBean.setInitPrice(auctions.getFloat(6));
-                newAucBean.setSecretMinPrice(auctions.getFloat(7));
-                newAucBean.setBidIncr(auctions.getFloat(8));
-                newAucBean.setUid(auctions.getInt(9));
-                newAucBean.setHighestBidID(auctions.getInt(10));
-                newAucBean.setPartNumber(auctions.getString(11));
+                newAucBean.setCloseTime(auctions.getTime(2));
+                newAucBean.setCloseDate(auctions.getDate(10));
+                newAucBean.setStatus(auctions.getInt(3));
+                newAucBean.setInitPrice(auctions.getFloat(4));
+                newAucBean.setSecretMinPrice(auctions.getFloat(6));
+                newAucBean.setBidIncr(auctions.getFloat(5));
+                newAucBean.setUid(auctions.getInt(7));
+                newAucBean.setHighestBidID(auctions.getInt(8));
+                newAucBean.setPartNumber(auctions.getString(9));
                 allAucs.add(newAucBean);
             }
             con.close();
@@ -80,9 +78,11 @@ public class AuctionDao {
 
         //Get all auctions that have already closed
         ArrayList<AuctionBean> closeCandidates = new ArrayList<AuctionBean>();
-        for(AuctionBean ab : auctions){
-            if(ab.getStatus() == 1 && ab.getCloseDate().compareTo(curDate) <= 0 && ab.getCloseTime().compareTo(curTime) < 0)
-                closeCandidates.add(ab);
+        for(AuctionBean ab : auctions) {
+            if(ab.getStatus() == 1 && ab.getCloseDate().compareTo(curDate) <= 0) {
+                if(ab.getCloseDate().compareTo(curDate) == 0 && ab.getCloseTime().compareTo(curTime) < 0)
+                    closeCandidates.add(ab);
+            }
         }
 
         try{
@@ -94,7 +94,7 @@ public class AuctionDao {
             //For each auction that has past its closeDateTime
             for(AuctionBean ab : closeCandidates){
                 //Update its status
-                String updateStat = "UPDATE auctions SET status = 0 WHERE aid = " + Integer.toString(ab.getAid()) + ";";
+                String updateStat = "UPDATE auctions SET available = 0 WHERE aid = " + Integer.toString(ab.getAid()) + ";";
                 statement.executeUpdate(updateStat);
 
                 //Determine if a highest bid exists

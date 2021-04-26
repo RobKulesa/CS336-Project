@@ -1,6 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="com.auctionsite.dao.AuctionDao" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>End User Logged In!</title>
@@ -28,9 +27,12 @@
     <input type="submit" value="View Alerts">
 </form>
 
+<form action="<%=request.getContextPath()%>/ThreadsServlet" method="post">
+    <input type="submit" value="View Threads">
+</form>
+
 <form action="<%=request.getContextPath()%>/LogoutServlet" method="get">
     <input type="submit" value="Logout">
 </form>
 </body>
-
 </html>

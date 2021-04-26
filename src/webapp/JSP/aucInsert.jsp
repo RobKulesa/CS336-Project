@@ -88,7 +88,7 @@
     }
 
     //Make insert statement for Items
-    String item_insert = "INSERT INTO items(brand,part_number,item_con,model) " +
+    String item_insert = "INSERT INTO items(brand,part_number,con,model) " +
             "VALUES (?,?,?,?)";
     PreparedStatement item_state = con.prepareStatement(item_insert);
     item_state.setString(1,brand);
@@ -98,7 +98,7 @@
     item_state.executeUpdate();
 
     if (item.equals("keyboard")) {
-      String keyboard_insert = "INSERT INTO keyboards(part_number,switch_type,k_wire,layout) " +
+      String keyboard_insert = "INSERT INTO keyboards(part_number,switch_type,wire,layout) " +
               "VALUES (?,?,?,?)";
       PreparedStatement keyboard_state = con.prepareStatement(keyboard_insert);
       keyboard_state.setString(1,part);
@@ -120,7 +120,7 @@
     }
 
     if (item.equals("mouse")) {
-      String mouse_insert = "INSERT INTO mice(part_number,m_wire,weight,DPI) " +
+      String mouse_insert = "INSERT INTO mice(part_number,wire,weight,DPI) " +
               "VALUES (?,?,?,?)";
       PreparedStatement mouse_state = con.prepareStatement(mouse_insert);
       mouse_state.setString(1,part);
@@ -131,19 +131,18 @@
     }
 
     //insert into auction
-    String auc_insert = "INSERT INTO auctions(start_time,close_date,close_time,status," +
+    String auc_insert = "INSERT INTO auctions(close_date,close_time,available," +
             "initial_price,bid_increment,secret_min_price,uid,part_number) " +
-            "VALUES (?,?,?,?,?,?,?,?,?)";
+            "VALUES (?,?,?,?,?,?,?,?)";
     PreparedStatement auc_state = con.prepareStatement(auc_insert);
-    auc_state.setString(1,"00:00");
-    auc_state.setString(2,close_date);
-    auc_state.setString(3,close_time);
-    auc_state.setBoolean(4,true);
-    auc_state.setFloat(5,start_price);
-    auc_state.setFloat(6,bid_increment);
-    auc_state.setFloat(7,min_price);
-    auc_state.setInt(8,uid);
-    auc_state.setString(9,part);
+    auc_state.setString(1,close_date);
+    auc_state.setString(2,close_time);
+    auc_state.setBoolean(3,true);
+    auc_state.setFloat(4,start_price);
+    auc_state.setFloat(5,bid_increment);
+    auc_state.setFloat(6,min_price);
+    auc_state.setInt(7,uid);
+    auc_state.setString(8,part);
     auc_state.executeUpdate();
 
     //Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.

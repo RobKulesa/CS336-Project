@@ -107,7 +107,6 @@
             out.print("</td>");
 
             out.print("<td>");
-            out.print(request.getContextPath());
             out.print("<form action=\"createBid.jsp\" method=\"get\">" +
                     "    <input type=\"hidden\" name=\"origin\" value=\"viewAuc.jsp\">" +
                     "    <input type=\"submit\" value=\"Create an automatic bid\">" +

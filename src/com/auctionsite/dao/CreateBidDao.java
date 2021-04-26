@@ -108,8 +108,8 @@ public class CreateBidDao {
                 newBidBean.setSecretUpperLimit(auctionSet.getFloat(1));
                 newBidBean.setUID(auctionSet.getInt(3));
                 newBidBean.setAmnt(auctionSet.getFloat(4));
-                newBidBean.setDesiredIncrement(auctionSet.getFloat(5));
-                newBidBean.setBid(auctionSet.getInt(6));
+                newBidBean.setDesiredIncrement(auctionSet.getFloat(6));
+                newBidBean.setBid(auctionSet.getInt(5));
                 bids.add(newBidBean);
             }
             auctionSet.close();
@@ -121,7 +121,7 @@ public class CreateBidDao {
             auction.close();
             if(bids.size() == 1){
                 if(bids.get(0).getSecretUpperLimit() != 0){
-                    String newAmnt = "UPDATE bids SET amnt = " + Float.toString(defaultPrice) + "WHERE bid ="
+                    String newAmnt = "UPDATE bids SET amnt = " + Float.toString(defaultPrice) + " WHERE bid ="
                             + Integer.toString(bids.get(0).getBid()) + ";";
                     statement.executeUpdate(newAmnt);
 
@@ -187,7 +187,7 @@ public class CreateBidDao {
                                 runnerUpAmnt = highestPossibleVal;
                             }
                             String updateBidAmnt = "UPDATE bids SET amnt = " + Float.toString(highestPossibleVal)
-                                    + "WHERE bid =" + Integer.toString(b.getBid()) + ";";
+                                    + " WHERE bid =" + Integer.toString(b.getBid()) + ";";
                             statement.executeUpdate(updateBidAmnt);
 
                         }
@@ -214,6 +214,7 @@ public class CreateBidDao {
                 //Update auctions table with the bid of the winning bid.
                 String updateAuctions= "UPDATE auctions SET highest_bid = " + Integer.toString(highestBid.getBid()) +
                          "\n WHERE aid =" + Integer.toString(aid) + ";";
+                System.out.println(updateAuctions);
                 statement.executeUpdate(updateAuctions);
             }
             con.close();
