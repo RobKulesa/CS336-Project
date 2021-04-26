@@ -24,7 +24,7 @@ public class ApplicationDB {
 		}
 		try {
 			//Create a connection to your
-			String password = "pbE5whWP.3YmUiK";
+			String password = "admin";
 			connection = DriverManager.getConnection(connectionUrl,"root", password);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
